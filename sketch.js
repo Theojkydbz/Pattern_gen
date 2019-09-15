@@ -41,7 +41,7 @@ function draw() {
             ALL_CRYSTALS.push(new Crystal(posX, posY))
         }
     }
-
+ 
     ALL_CRYSTALS.forEach(crystal =>{
         crystal.render()
     })
