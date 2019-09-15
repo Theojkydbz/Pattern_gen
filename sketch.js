@@ -15,24 +15,57 @@ function setup() {
 
 }
 function draw() {
-    // testLines();
+    testLines();
     outlineShape();
+    simpleLines();
+    circles();
+}
+function circles() {
+    const numShapes = SIDES
+    const angle = 360 / numShapes
+    const shapeSize = (CRYSTAL_SIZE/ 2) * 0.93
+    const position = (CRYSTAL_SIZE / 2) - (shapeSize / 2)
+    const strokeColor = getRandomFromPalette()
+    const weight = randomSelectTwo() ? 1 : 3
+
+    stroke(strokeColor)
+    strokeWeight(weight)
+
+    push();
+        translate(width/2, height/2)
+        for(let i = 0; i <= numShapes; i++){
+            ellipse(position,0,shapeSize,shapeSize)
+            rotate(angle);
+        }
+    pop();
 }
 
-function hexagon(posX, posY, radius) {
-    let rotAngle = 360 / 6;
-    beginShape();
-    for (let i = 0; i < 6; i++) {
-      const thisVertex = pointOncircle(posX, posY, radius, i * rotAngle)
-      vertex(thisVertex.x, thisVertex.y);
-    }
-    endShape(CLOSE);
-}
+function simpleLines() {
 
-function pointOncircle(posX, posY, radius, angle) {
-    const x = posX + radius * cos(angle)
-    const y = posY + radius * sin(angle)
-    return createVector(x, y)
+    const stepsOut = 8
+    const numSteps = randomSelectTwo() ? stepsOut : stepsOut * 1.25
+    const step = (CRYSTAL_SIZE / 2) / numSteps
+    const start = floor(random(0, numSteps))
+    const stop = floor(random(start, numSteps + 1))
+
+    let numShapes = randomSelectTwo() ? SIDES : SIDES * 2
+    const strokeColor = getRandomFromPalette();
+    const weight = randomSelectTwo() ? 1 : 3
+    const angle = 360 / numShapes;
+
+    noFill();
+    stroke(strokeColor);
+    strokeWeight(weight);
+
+    push();
+        translate(width/2, height/2);
+
+        for(let i =0;i<numShapes; i++){
+            line(start * step, 0, stop * step, 0);
+            rotate(angle);
+        }
+    pop();
+
 }
 
 function outlineShape () {
@@ -53,7 +86,7 @@ function outlineShape () {
 
 function testLines () {
 
-    strokeWeight(2);
+    
     let numShapes = randomSelectTwo() ? SIDES : SIDES * 2
     const strokeColor = getRandomFromPalette()
 
