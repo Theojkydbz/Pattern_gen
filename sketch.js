@@ -1,126 +1,53 @@
-const CRYSTAL_SIZE = 500;
+const CRYSTAL_SIZE = 150;
 const SIDES = 6;
+
+//layout
+const MARGIN = CRYSTAL_SIZE / 2
+const COLUMNS = 3
+const ROWS = 4
+const PADDING = CRYSTAL_SIZE * 0.2
+const GRIDBOX = CRYSTAL_SIZE + PADDING
+const START = CRYSTAL_SIZE / 2 + MARGIN
+
 let PALETTE = [];
+ALL_CRYSTALS = []
+
+const layers = []
 
 function setup() {
-    createCanvas(530,530,SVG);
+
+    const totalX = START + GRIDBOX * COLUMNS
+    const totalY = START + GRIDBOX * ROWS
+
+    createCanvas(totalX,totalY,SVG);
 
     PALETTE = [
-        color(255, 50, 154),    //pink
-        color(4, 0, 152),       //blue
+        color(104, 199, 250),    //beige
+        color(255, 119, 119),       //salmon
     ]
     noLoop();
     angleMode(DEGREES);
     rectMode(CENTER);
 
 }
+
 function draw() { 
-    testLines();
-    outlineShape();
-    simpleLines();
-    circles();
-}
-function circles() {
-    const numShapes = SIDES
-    const angle = 360 / numShapes
-    const shapeSize = (CRYSTAL_SIZE/ 2) * 0.93
-    const position = (CRYSTAL_SIZE / 2) - (shapeSize / 2)
-    const strokeColor = getRandomFromPalette()
-    const weight = randomSelectTwo() ? 1 : 3
 
-    stroke(strokeColor)
-    strokeWeight(weight)
 
-    push();
-        translate(width/2, height/2)
-        for(let i = 0; i <= numShapes; i++){
-            ellipse(position,0,shapeSize,shapeSize)
-            rotate(angle);
+    for(let x = 0; x < COLUMNS; x++) {
+        for(let y = 0; y < ROWS; y++) {
+            const posX = START + (x * GRIDBOX)
+            const posY = START + (y * GRIDBOX)
+            ALL_CRYSTALS.push(new Crystal(posX, posY))
         }
-    pop();
-}
-
-function simpleLines() {
-
-    const stepsOut = 8
-    const numSteps = randomSelectTwo() ? stepsOut : stepsOut * 1.25
-    const step = (CRYSTAL_SIZE / 2) / numSteps
-    const start = floor(random(0, numSteps))
-    const stop = floor(random(start, numSteps + 1))
-
-    let numShapes = randomSelectTwo() ? SIDES : SIDES * 2
-    const strokeColor = getRandomFromPalette();
-    const weight = randomSelectTwo() ? 1 : 3
-    const angle = 360 / numShapes;
-
-    noFill();
-    stroke(strokeColor);
-    strokeWeight(weight);
-
-    push();
-        translate(width/2, height/2);
-
-        for(let i =0;i<numShapes; i++){
-            line(start * step, 0, stop * step, 0);
-            rotate(angle);
-        }
-    pop();
-
-}
-
-function outlineShape () {
-    const strokeColor = getRandomFromPalette()
-    const weight = randomSelectTwo() ? 1 : 3
-    const hexagonTrue = randomSelectTwo();
-    stroke(strokeColor);
-    strokeWeight(weight);
-    push();
-    translate(width/2,height/2);
-    if(hexagonTrue){
-        hexagon(0,0,CRYSTAL_SIZE / 2);
-    } else {
-        ellipse(0,0,CRYSTAL_SIZE,CRYSTAL_SIZE);
-    }
-    pop();
-}
-
-function testLines () {
-
-    
-    let numShapes = randomSelectTwo() ? SIDES : SIDES * 2
-    const strokeColor = getRandomFromPalette()
-
-
-    noFill();
-    stroke(PALETTE[0]);
-    push();
-        translate(width/2, height/2);
-        ellipse(0, 0, CRYSTAL_SIZE, CRYSTAL_SIZE)
-
-        stroke(strokeColor)
-        const angle = 360 / numShapes
-        for(let i =0;i<numShapes; i++){
-            line(0, 0, 0, CRYSTAL_SIZE/2);
-            rotate(angle);
-        }
-    pop();
-
-}
-
-function randomSelectTwo() {
-
-    const rando = random(1)
-    if(rando > 0.5){
-        return true
-    } else {
-        return false
     }
 
-}
+    ALL_CRYSTALS.forEach(crystal =>{
+        crystal.render()
+    })
 
-function getRandomFromPalette () {
-
-    const rando2 = floor(random(0, PALETTE.length));
-    return PALETTE[rando2];
 
 }
+
+
+
