@@ -14,7 +14,7 @@ function setup() {
     rectMode(CENTER);
 
 }
-function draw() {
+function draw() { 
     testLines();
     outlineShape();
     simpleLines();
