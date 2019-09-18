@@ -69,7 +69,7 @@ const layerConstructor = [
       ...props,
       ...setState(state)
     }),
-    weight: 0.3
+    weight: 0.6
   },
   {
     name: 'SimpleLines',
@@ -85,7 +85,7 @@ const layerConstructor = [
       ...props,
       ...setState(state)
     }),
-    weight: 0.3
+    weight: 0.4
   },
   {
     name: 'DottedLines',
