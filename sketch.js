@@ -41,7 +41,7 @@ function draw() {
             const crystal = makeCrystal({x: posX, y: posY})
             ALL_CRYSTALS.push(crystal)
             //console.log(crystal)
-        }
+        } 
     }
     
  
