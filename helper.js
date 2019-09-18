@@ -1,5 +1,5 @@
 
-function hexagon(posX, posY, radius) {
+const hexagon = (posX, posY, radius) => {
     let rotAngle = 360 / 6;
     beginShape();
     for (let i = 0; i < 6; i++) {
@@ -9,13 +9,13 @@ function hexagon(posX, posY, radius) {
     endShape(CLOSE);
 }
 
-function pointOncircle(posX, posY, radius, angle) {
+const pointOncircle = (posX, posY, radius, angle) => {
     const x = posX + radius * cos(angle)
     const y = posY + radius * sin(angle)
     return createVector(x, y)
 }
 
-function randomSelectTwo() {
+const randomSelectTwo = () => {
 
   const rando = random(1)
   if(rando > 0.5){
@@ -26,7 +26,7 @@ function randomSelectTwo() {
 
 }
 
-function getRandomFromPalette () {
+const getRandomFromPalette = () => {
 
   const rando2 = floor(random(0, PALETTE.length));
   return PALETTE[rando2];
@@ -38,7 +38,7 @@ function getRandomFromPalette () {
 
 
 
-function myTriangle (center, radius, direction) {
+const myTriangle = (center, radius, direction) => {
   if (direction) {
     beginShape();
     vertex(center + radius * cos(0), radius * sin(0));
@@ -57,42 +57,89 @@ function myTriangle (center, radius, direction) {
 const layerConstructor = [
   {
     name: 'Outline Shape',
-    init: () => new OutlineShape(),
+    init: (props) => OutlineShape({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'Circles',
-    init: () => new Circles(),
+    init: (props) => Circles({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'SimpleLines',
-    init: () => new SimpleLines(),
+    init: (props) => SimpleLines({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'CenteredShape',
-    init: () => new CenteredShape(),
+    init: (props) => CenteredShape({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'DottedLines',
-    init: () => new DottedLines(),
+    init: (props) => DottedLines({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name: 'SteppedHexagons',
-    init: () => new SteppedHexagons(),
+    init: (props) => SteppedHexagons({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.7
   },
   {
     name: 'RingOfShapes',
-    init: () => new RingOfShapes(),
+    init: (props) => RingOfShapes({
+      ...props,
+      ...setState(state)
+    }),
     weight: 0.3
   },
   {
     name:'Test Lines',
-    init: () => new TestLines(),
+    init: (props) => TestLines({
+      ...props,
+      ...setState(state)
+    }),
     weight: 1
   },
 ]
+
+const makeCrystal = (pos) => {
+  const layers = layerConstructor.map(lcon => {
+    let picker = random(1)
+    const draw = picker > lcon.weight
+        return lcon.init({
+          pos: pos,
+          draw: draw
+        })
+  })
+  return layers
+}
+
+const drawCrystal = (crystal) => {
+  crystal.forEach(layer => {
+    if (layer.state.draw) {
+      push()
+        translate(layer.state.pos.x, layer.state.pos.y)
+        layer.render()
+      pop()
+    }
+  })
+}
