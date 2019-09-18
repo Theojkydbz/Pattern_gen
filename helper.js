@@ -86,7 +86,7 @@ const layerConstructor = [
       ...setState(state)
     }),
     weight: 0.4
-  },
+  }, 
   {
     name: 'DottedLines',
     init: (props) => DottedLines({
