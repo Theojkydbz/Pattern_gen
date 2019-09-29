@@ -3,8 +3,8 @@
 const state = {
     sides: SIDES,
     stepsOut: 8,
-    thinStroke: 1,
-    thickStroke: 3
+    thinStroke: 7,
+    thickStroke: 10
 }
 
 const setState = (state) => {
@@ -56,7 +56,7 @@ const Circles = (state) => {
         render: () => {
             noFill();
             stroke(state.layerColor)
-            strokeWeight(1)
+            strokeWeight(state.weight)
 
             push();
                 //translate(width/2, height/2)
@@ -123,7 +123,7 @@ const DottedLines = (state) => {
 
     state.numShapes = randomSelectTwo() ? SIDES : SIDES * 2
     state.angle = 360 / state.numShapes
-    state.shapeSize = 3
+    state.shapeSize = 15
     state.centerOffset = state.singleStep
   
     return ({
