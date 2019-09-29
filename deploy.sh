@@ -11,7 +11,7 @@ set -e
 # echo 'www.example.com' > CNAME
 
 git init
-git add -A
+git add .
 git commit -m 'deployC'
 
 # if you are deploying to https://<USERNAME>.github.io
