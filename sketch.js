@@ -51,7 +51,7 @@ function draw() {
     })
 
     // console.log(Circles({test: 'hello'}))
-    save('myCanvas.jpg')
+    save('myCanvas.jpg') 
 }
 
 
