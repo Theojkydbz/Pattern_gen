@@ -4,7 +4,7 @@ const state = {
     sides: SIDES,
     stepsOut: 8,
     thinStroke: 7,
-    thickStroke: 10
+    thickStroke: 15
 }
 
 const setState = (state) => {
@@ -105,6 +105,7 @@ const OutlineShape = (state) => {
         name:'OutlineShape',
         state,
         render: () => {
+            fill(state.layerColor)
             stroke(state.layerColor);
             strokeWeight(state.weight);
             push();

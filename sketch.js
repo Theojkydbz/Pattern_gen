@@ -20,11 +20,12 @@ function setup() {
     // const totalY = START + GRIDBOX * ROWS
 
     createCanvas(window.innerWidth,window.innerHeight);
-    background(255);
+    
     PALETTE = [
-        color(104, 199, 250),    //beige
-        color(255, 119, 0),       //salmon
+        color(random(200,255), random(200,255), random(200,255)),  
+        color(random(100), random(100), random(100)),
     ]
+    background(getRandomFromPalette());
     noLoop();
     angleMode(DEGREES);
     rectMode(CENTER);
@@ -35,13 +36,14 @@ function draw() {
 
     const crystal = makeCrystal({x: window.innerWidth/2,y: window.innerHeight/2})
     ALL_CRYSTALS.push(crystal)
+    console.log(crystal)
     // for(let x = 0; x < COLUMNS; x++) {
     //     for(let y = 0; y < ROWS; y++) {
     //         const posX = START + (x * GRIDBOX)
     //         const posY = START + (y * GRIDBOX)
     //         const crystal = makeCrystal({x: posX, y: posY})
     //         ALL_CRYSTALS.push(crystal)
-    //         //console.log(crystal)
+    //         console.log(crystal)
     //     } 
     // }
     
@@ -51,7 +53,7 @@ function draw() {
     })
 
     // console.log(Circles({test: 'hello'}))
-    save('myCanvas.jpg') 
+    save('myCanvas') 
 }
 
 
